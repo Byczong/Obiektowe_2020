@@ -1,4 +1,4 @@
-package pl.edu.agh.po.lab02;
+package pl.edu.agh.po.lab03;
 
 public enum MapDirection {
     NORTH,
@@ -10,8 +10,8 @@ public enum MapDirection {
         return switch (this) {
             case NORTH -> "Północ";
             case SOUTH -> "Południe";
-            case WEST -> "Wschód";
-            case EAST -> "Zachód";
+            case WEST -> "Zachód";
+            case EAST -> "Wschód";
         };
     }
     public MapDirection next(){

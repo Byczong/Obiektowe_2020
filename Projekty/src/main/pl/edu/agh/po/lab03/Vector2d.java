@@ -1,4 +1,4 @@
-package pl.edu.agh.po.lab02;
+package pl.edu.agh.po.lab03;
 
 import java.util.Objects;
 

@@ -60,10 +60,10 @@ public class Vector2dTest {
 
     @Test
     public void testEquals() {
-        assertTrue(t1.equals(new Vector2d(1,2)));
-        assertTrue(t2.equals(new Vector2d(2,4)));
-        assertTrue(t3.equals(new Vector2d(-2,5)));
-        assertTrue(t4.equals(new Vector2d(-1,-2)));
+        assertEquals(t1, new Vector2d(1, 2));
+        assertEquals(t2, new Vector2d(2, 4));
+        assertEquals(t3, new Vector2d(-2, 5));
+        assertEquals(t4, new Vector2d(-1, -2));
     }
 
     @Test
