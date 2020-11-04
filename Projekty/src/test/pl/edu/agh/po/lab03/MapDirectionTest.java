@@ -2,7 +2,8 @@ package pl.edu.agh.po.lab03;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import pl.edu.agh.po.lab02.MapDirection;
+import static org.junit.Assert.assertEquals;
 
 public class MapDirectionTest {
     @Test

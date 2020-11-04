@@ -1,6 +1,6 @@
 package pl.edu.agh.po.lab02;
 
-public class World {
+public class World2 {
     public static void main(String[] args) {
         Vector2d position1 = new Vector2d(1,2);
         System.out.println(position1);

@@ -1,10 +1,16 @@
 package pl.edu.agh.po.lab03;
 
+import pl.edu.agh.po.lab02.Vector2d;
+import pl.edu.agh.po.lab02.MoveDirection;
+import pl.edu.agh.po.lab02.MapDirection;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+
 
 public class AnimalTest {
+
         Animal lynx1 = new Animal();
         Animal lynx2 = new Animal();
         Animal lynx3 = new Animal();
@@ -17,7 +23,7 @@ public class AnimalTest {
             Vector2d expectedPos1 = new Vector2d(2, 4);
             MapDirection expectedOrient1 = MapDirection.EAST;
             for (MoveDirection moveDirection : orders1)
-                lynx1.move(moveDirection);
+                lynx1.oldMove(moveDirection);
             assertEquals(expectedPos1, lynx1.getLocation());
             assertEquals(expectedOrient1, lynx1.getOrientation());
 
@@ -27,7 +33,7 @@ public class AnimalTest {
             Vector2d expectedPos2 = new Vector2d(4, 1);
             MapDirection expectedOrient2 = MapDirection.WEST;
             for (MoveDirection moveDirection : orders2)
-                lynx2.move(moveDirection);
+                lynx2.oldMove(moveDirection);
             assertEquals(expectedPos2, lynx2.getLocation());
             assertEquals(expectedOrient2, lynx2.getOrientation());
 
@@ -37,7 +43,7 @@ public class AnimalTest {
         Vector2d expectedPos3 = new Vector2d(4, 0);
         MapDirection expectedOrient3 = MapDirection.EAST;
         for (MoveDirection moveDirection : orders3)
-            lynx3.move(moveDirection);
+            lynx3.oldMove(moveDirection);
         assertEquals(expectedPos3, lynx3.getLocation());
         assertEquals(expectedOrient3, lynx3.getOrientation());
     }

@@ -1,10 +1,12 @@
 package pl.edu.agh.po.lab03;
 
+import pl.edu.agh.po.lab02.MoveDirection;
+
 import java.util.ArrayList;
 
 public class OptionsParser {
-    public static MoveDirection translate(String s)
-    {
+
+    public static MoveDirection translate(String s) {
         return switch (s) {
             case "forward", "f" -> MoveDirection.FORWARD;
             case "backward", "b" -> MoveDirection.BACKWARD;
@@ -12,20 +14,17 @@ public class OptionsParser {
             case "left", "l" -> MoveDirection.LEFT;
             default -> throw new IllegalStateException("Unexpected value");
         };
-        }
-
-        public static MoveDirection[] parse(String[] args)
-        {
-            ArrayList<MoveDirection> orders = new ArrayList<>();
-            for(String s : args)
-            {
-                try
-                {
-                    orders.add(translate(s));
-                }
-                catch (IllegalStateException e) {}
-            }
-            MoveDirection[] arrayOrders = new MoveDirection[orders.size()];
-            return orders.toArray( arrayOrders );
-        }
     }
+
+    public static MoveDirection[] parse(String[] args) {
+        ArrayList<MoveDirection> orders = new ArrayList<>();
+        for(String s : args) {
+            try {
+                orders.add(translate(s));
+            }
+            catch (IllegalStateException e) {}
+        }
+        MoveDirection[] arrayOrders = new MoveDirection[orders.size()];
+        return orders.toArray( arrayOrders );
+    }
+}
