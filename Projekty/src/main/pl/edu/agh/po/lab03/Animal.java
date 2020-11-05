@@ -10,20 +10,16 @@ import pl.edu.agh.po.lab04.IWorldMap;
 public class Animal {
     private MapDirection orientation;
     private Vector2d location;
-
-    public Animal(){
-        this.orientation = MapDirection.NORTH;
-        this.location = new Vector2d(2, 2);
-    }
+    private final IWorldMap animalMap;
 
     public Animal(IWorldMap map){
-        this.orientation = MapDirection.NORTH;
-        this.location = new Vector2d(2, 2);
+        this(map, new Vector2d(2,2));
     }
 
     public Animal(IWorldMap map, Vector2d initialPosition){
-        this.orientation = MapDirection.NORTH;
+        this.animalMap = map;
         this.location = initialPosition;
+        this.orientation = MapDirection.NORTH;
     }
 
     public void move(MoveDirection direction, IWorldMap map){
@@ -34,16 +30,10 @@ public class Animal {
         switch (direction) {
             case LEFT -> possibleNextAnimal.orientation = this.orientation.previous();
             case RIGHT -> possibleNextAnimal.orientation = this.orientation.next();
-            case FORWARD -> {
-                if(map.canMoveTo(possibleNextAnimal.location))
-                    possibleNextAnimal.location = this.location.add(this.orientation.toUnitVector());
-            }
-            case BACKWARD ->{
-                if(map.canMoveTo(possibleNextAnimal.location))
-                    possibleNextAnimal.location = this.location.subtract(this.orientation.toUnitVector());
-            }
+            case FORWARD -> possibleNextAnimal.location = this.location.add(this.orientation.toUnitVector());
+            case BACKWARD -> possibleNextAnimal.location = this.location.subtract(this.orientation.toUnitVector());
         }
-        if(map.canMoveTo(possibleNextAnimal.location)){
+        if(map.canMoveTo(possibleNextAnimal.location) || this.location == possibleNextAnimal.location){
             this.location = possibleNextAnimal.location;
             this.orientation = possibleNextAnimal.orientation;
         }

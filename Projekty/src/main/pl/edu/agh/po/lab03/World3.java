@@ -18,16 +18,18 @@ public class World3 {
         }
         return position.precedes(TOPRIGHT) && position.follows(BOTTOMLEFT);
     }
-
-    public static void main(String[] args) {
-        Animal ostrich = new Animal();
-        System.out.println(ostrich);
-
-        String[] arr = new String[]{"f", "r", "f", "l", "f", "r", "r", "b", "f", "f", "b", "b", "abc"};
-        MoveDirection[] orders = OptionsParser.parse(arr);
-        for(MoveDirection order : orders) {
-            ostrich.oldMove(order);
-            System.out.println(ostrich);
-        }
-    }
+/**
+ *   public static void main(String[] args) {
+ *       Animal ostrich = new Animal();
+ *       System.out.println(ostrich);
+ *
+ *       String[] arr = new String[]{"f", "r", "f", "l", "f", "r", "r", "b", "f", "f", "b", "b", "abc"};
+ *       MoveDirection[] orders = OptionsParser.parse(arr);
+ *       for(MoveDirection order : orders) {
+ *           ostrich.oldMove(order);
+ *           System.out.println(ostrich);
+ *       }
+ *   }
+ *
+ **/
 }

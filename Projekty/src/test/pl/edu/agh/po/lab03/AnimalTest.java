@@ -6,14 +6,15 @@ import pl.edu.agh.po.lab02.MapDirection;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-
+import pl.edu.agh.po.lab04.IWorldMap;
+import pl.edu.agh.po.lab04.RectangularMap;
 
 
 public class AnimalTest {
-
-        Animal lynx1 = new Animal();
-        Animal lynx2 = new Animal();
-        Animal lynx3 = new Animal();
+        IWorldMap map = new RectangularMap(10, 5);
+        Animal lynx1 = new Animal(map);
+        Animal lynx2 = new Animal(map);
+        Animal lynx3 = new Animal(map);
         MoveDirection[] orders1 = {MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.RIGHT};
         MoveDirection[] orders2 = {MoveDirection.BACKWARD, MoveDirection.LEFT, MoveDirection.BACKWARD, MoveDirection.BACKWARD, MoveDirection.BACKWARD};
         MoveDirection[] orders3 = {MoveDirection.BACKWARD, MoveDirection.BACKWARD, MoveDirection.RIGHT,  MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.FORWARD};

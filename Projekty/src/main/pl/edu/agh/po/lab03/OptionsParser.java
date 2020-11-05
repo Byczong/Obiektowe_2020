@@ -16,7 +16,7 @@ public class OptionsParser {
         };
     }
 
-    public static MoveDirection[] parse(String[] args) {
+    public MoveDirection[] parse(String[] args) {
         ArrayList<MoveDirection> orders = new ArrayList<>();
         for(String s : args) {
             try {
