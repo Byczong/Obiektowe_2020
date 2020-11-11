@@ -9,7 +9,7 @@ import pl.edu.agh.po.lab04.IWorldMap;
 
 public class Animal {
     private MapDirection orientation;
-    private Vector2d location;
+    private Vector2d position;
     private final IWorldMap animalMap;
 
     public Animal(IWorldMap map){
@@ -18,23 +18,23 @@ public class Animal {
 
     public Animal(IWorldMap map, Vector2d initialPosition){
         this.animalMap = map;
-        this.location = initialPosition;
+        this.position = initialPosition;
         this.orientation = MapDirection.NORTH;
     }
 
     public void move(MoveDirection direction, IWorldMap map){
 
-        Animal possibleNextAnimal = new Animal(map, this.location);
+        Animal possibleNextAnimal = new Animal(map, this.position);
         possibleNextAnimal.orientation = this.orientation;
 
         switch (direction) {
             case LEFT -> possibleNextAnimal.orientation = this.orientation.previous();
             case RIGHT -> possibleNextAnimal.orientation = this.orientation.next();
-            case FORWARD -> possibleNextAnimal.location = this.location.add(this.orientation.toUnitVector());
-            case BACKWARD -> possibleNextAnimal.location = this.location.subtract(this.orientation.toUnitVector());
+            case FORWARD -> possibleNextAnimal.position = this.position.add(this.orientation.toUnitVector());
+            case BACKWARD -> possibleNextAnimal.position = this.position.subtract(this.orientation.toUnitVector());
         }
-        if(map.canMoveTo(possibleNextAnimal.location) || this.location == possibleNextAnimal.location){
-            this.location = possibleNextAnimal.location;
+        if(map.canMoveTo(possibleNextAnimal.position) || this.position == possibleNextAnimal.position){
+            this.position = possibleNextAnimal.position;
             this.orientation = possibleNextAnimal.orientation;
         }
     }
@@ -44,12 +44,12 @@ public class Animal {
             case LEFT -> this.orientation = this.orientation.previous();
             case RIGHT -> this.orientation = this.orientation.next();
             case FORWARD -> {
-                if(World3.wontFallOffMap(this.location, MoveDirection.FORWARD, this.orientation))
-                    this.location = this.location.add(this.orientation.toUnitVector());
+                if(World3.wontFallOffMap(this.position, MoveDirection.FORWARD, this.orientation))
+                    this.position = this.position.add(this.orientation.toUnitVector());
             }
             case BACKWARD ->{
-                if(World3.wontFallOffMap(this.location, MoveDirection.BACKWARD, this.orientation))
-                    this.location = this.location.subtract(this.orientation.toUnitVector());
+                if(World3.wontFallOffMap(this.position, MoveDirection.BACKWARD, this.orientation))
+                    this.position = this.position.subtract(this.orientation.toUnitVector());
             }
         }
     }
@@ -70,7 +70,7 @@ public class Animal {
         return orientation;
     }
 
-    public Vector2d getLocation() {
-        return location;
+    public Vector2d getPosition() {
+        return position;
     }
 }

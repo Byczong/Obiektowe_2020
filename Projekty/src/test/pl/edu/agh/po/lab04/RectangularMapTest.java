@@ -26,8 +26,8 @@ public class RectangularMapTest {
         map.place(new Animal(map, new Vector2d(5, 3)));
         map.run(directions);
 
-        assertEquals(new Vector2d(3, 5), map.animals.get(0).getLocation());
-        assertEquals(new Vector2d(5, 5), map.animals.get(1).getLocation());
+        assertEquals(new Vector2d(3, 5), map.animals.get(0).getPosition());
+        assertEquals(new Vector2d(5, 5), map.animals.get(1).getPosition());
 
         assertEquals(MapDirection.WEST, map.animals.get(0).getOrientation());
         assertEquals(MapDirection.EAST, map.animals.get(1).getOrientation());
@@ -48,9 +48,9 @@ public class RectangularMapTest {
         List<MoveDirection> directionsList = Arrays.asList(directions);
         map.run(directionsList);
 
-        assertEquals(new Vector2d(6, 2), map.animals.get(0).getLocation());
-        assertEquals(new Vector2d(7, 2), map.animals.get(1).getLocation());
-        assertEquals(new Vector2d(8, 2), map.animals.get(2).getLocation());
+        assertEquals(new Vector2d(6, 2), map.animals.get(0).getPosition());
+        assertEquals(new Vector2d(7, 2), map.animals.get(1).getPosition());
+        assertEquals(new Vector2d(8, 2), map.animals.get(2).getPosition());
 
         assertEquals(MapDirection.EAST, map.animals.get(0).getOrientation());
         assertEquals(MapDirection.EAST, map.animals.get(1).getOrientation());

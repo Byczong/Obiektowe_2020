@@ -25,7 +25,7 @@ public class AnimalTest {
             MapDirection expectedOrient1 = MapDirection.EAST;
             for (MoveDirection moveDirection : orders1)
                 lynx1.oldMove(moveDirection);
-            assertEquals(expectedPos1, lynx1.getLocation());
+            assertEquals(expectedPos1, lynx1.getPosition());
             assertEquals(expectedOrient1, lynx1.getOrientation());
 
         }
@@ -35,7 +35,7 @@ public class AnimalTest {
             MapDirection expectedOrient2 = MapDirection.WEST;
             for (MoveDirection moveDirection : orders2)
                 lynx2.oldMove(moveDirection);
-            assertEquals(expectedPos2, lynx2.getLocation());
+            assertEquals(expectedPos2, lynx2.getPosition());
             assertEquals(expectedOrient2, lynx2.getOrientation());
 
         }
@@ -45,7 +45,7 @@ public class AnimalTest {
         MapDirection expectedOrient3 = MapDirection.EAST;
         for (MoveDirection moveDirection : orders3)
             lynx3.oldMove(moveDirection);
-        assertEquals(expectedPos3, lynx3.getLocation());
+        assertEquals(expectedPos3, lynx3.getPosition());
         assertEquals(expectedOrient3, lynx3.getOrientation());
     }
 }
