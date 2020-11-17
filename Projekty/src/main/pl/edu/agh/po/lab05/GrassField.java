@@ -1,27 +1,22 @@
 package pl.edu.agh.po.lab05;
 
-import pl.edu.agh.po.lab02.MoveDirection;
 import pl.edu.agh.po.lab02.Vector2d;
-import pl.edu.agh.po.lab03.Animal;
-import pl.edu.agh.po.lab04.MapVisualiser;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 
 public class GrassField extends AbstractWorldMap {
 
     private int numberOfGrasses;
-    public final List<Animal> animals = new LinkedList<>();
     private final List<Grass> grasses = new LinkedList<>();
+    private final Map<Vector2d, Grass> grassHashMap = new HashMap<>();
+    private Vector2d bottomLeft;
+    private Vector2d topRight;
 
     public GrassField(int number){
         numberOfGrasses = 0;
-        super.bottomLeft = new Vector2d(0,0);
-        super.topRight = new Vector2d(0,0);
-        super.mapVisualiser = new MapVisualiser(this);
+        bottomLeft = new Vector2d(0,0);
+        topRight = new Vector2d(0,0);
         this.placeGrass(numberOfGrasses + number);
     }
 
@@ -33,8 +28,9 @@ public class GrassField extends AbstractWorldMap {
         for(int currentGrass=0; currentGrass<desiredNumberOfGrasses; currentGrass++) {
             grassLimit = (int)Math.sqrt(numberOfGrasses * 10) + 1;
             Vector2d currentPosition = new Vector2d(grassGenerator.nextInt(grassLimit), grassGenerator.nextInt(grassLimit));
-            if (!grassOccupied(currentPosition)) {
+            if (objectAt(currentPosition).isEmpty()) {
                 grasses.add(new Grass(currentPosition));
+                grassHashMap.put(currentPosition, grasses.get(grasses.size() - 1));
                 numberOfGrasses++;
             }
             else
@@ -43,18 +39,8 @@ public class GrassField extends AbstractWorldMap {
         setBoundaries(animals.size(), start);
     }
 
-    public boolean grassOccupied(Vector2d position) {
-        if(objectAt(position).isPresent())
-            return isOccupied(position) && objectAt(position).get() instanceof Grass;
-        else
-            return false;
-    }
-
-    public boolean animalOccupied(Vector2d position) {
-        if(objectAt(position).isPresent())
-            return isOccupied(position) && objectAt(position).get() instanceof Animal;
-        else
-            return false;
+    public void adjustMap(){
+        setBoundaries(0, grasses.size());
     }
 
     public void setBoundaries(int start_a, int start_g) {
@@ -78,8 +64,9 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
-    public boolean canMoveTo(Vector2d position) {
-        return !animalOccupied(position);}
+    public Vector2d[] getBoundaries(){
+        return  new Vector2d[]{bottomLeft, topRight};
+    }
 
     @Override
     public boolean isOccupied(Vector2d position) {
@@ -87,37 +74,17 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
-    public boolean place(Animal animal) {
-        if (canMoveTo(animal.getPosition())) {
-            this.animals.add(animal);
-            return true;
-        }
-        else
-            return false;
-    }
+    public Optional<AbstractMapElement> objectAt(Vector2d position) {
 
-    @Override
-    public void run(List<MoveDirection> directions) {
-        int animalsSize = animals.size();
-        for (int i=0; i < directions.size(); i++){
-            //System.out.println(this);
-            animals.get(i % animalsSize).move(directions.get(i), this);
-        }
-        setBoundaries(0 ,grasses.size());
-    }
+        if(animalHashMap.containsKey(position))
+            return Optional.of(animalHashMap.get(position));
 
-    @Override
-    public Optional<Object> objectAt(Vector2d position) {
-        for(Animal animal : animals)
-            if(animal.getPosition().equals(position))
-                return Optional.of(animal);
-
-        for (Grass grass: grasses)
-            if(grass.getPosition().equals(position))
-                return Optional.of(grass);
+        if(grassHashMap.containsKey(position))
+            return Optional.of(grassHashMap.get(position));
 
         return Optional.empty();
     }
+
 
     public int getNumberOfGrasses(){
         return numberOfGrasses;

@@ -3,20 +3,20 @@ package pl.edu.agh.po.lab04;
 import pl.edu.agh.po.lab02.MoveDirection;
 import pl.edu.agh.po.lab02.Vector2d;
 import pl.edu.agh.po.lab03.Animal;
+import pl.edu.agh.po.lab05.AbstractMapElement;
 import pl.edu.agh.po.lab05.AbstractWorldMap;
 
-import java.util.LinkedList;
+
 import java.util.List;
 import java.util.Optional;
 
 public class RectangularMap extends AbstractWorldMap {
 
-    public final List<Animal> animals = new LinkedList<>();
+    private static final Vector2d bottomLeft = new Vector2d(0,0);;
+    private final Vector2d topRight;
 
     public RectangularMap(int width, int height){
-        super.bottomLeft = new Vector2d(0,0);
-        super.topRight = new Vector2d(width,height);
-        super.mapVisualiser = new MapVisualiser(this);
+        topRight = new Vector2d(width, height);
     }
 
     @Override
@@ -35,16 +35,23 @@ public class RectangularMap extends AbstractWorldMap {
     }
 
     @Override
+    public Vector2d[] getBoundaries(){
+        return  new Vector2d[]{bottomLeft, topRight};
+    }
+
+    @Override
+    public void adjustMap() { }
+
+    @Override
     public void run(List<MoveDirection> directions) {
         int animalsSize = animals.size();
         for (int i=0; i < directions.size(); i++){
-            //System.out.println(this);
             animals.get(i % animalsSize).move(directions.get(i), this);
         }
     }
 
     @Override
-    public Optional<Object> objectAt(Vector2d position) {
+    public Optional<AbstractMapElement> objectAt(Vector2d position) {
         for(Animal animal : animals)
             if(animal.getPosition().equals(position))
                 return Optional.of(animal);

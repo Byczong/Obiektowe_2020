@@ -12,7 +12,7 @@ public class OptionsParser {
             case "backward", "b" -> MoveDirection.BACKWARD;
             case "right", "r" -> MoveDirection.RIGHT;
             case "left", "l" -> MoveDirection.LEFT;
-            default -> throw new IllegalStateException("Unexpected value");
+            default -> throw new IllegalArgumentException(s + " is not legal move specification");
         };
     }
 

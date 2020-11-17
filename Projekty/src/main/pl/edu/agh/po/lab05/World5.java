@@ -12,13 +12,21 @@ import java.util.List;
 public class World5 {
     public static void main(String[] args) {
         String [] input = new String []{"f","b","r","l","f","f","r","r","f","f","f","f","f","f","f","f"};
-        List<MoveDirection> directions = Arrays.asList(new OptionsParser().parse(input));
         IWorldMap map = new GrassField(10);
         Animal anaconda = new Animal(map);
-        map.place(anaconda);
         Animal grizzly = new Animal(map, new Vector2d(3,4));
-        map.place(grizzly);
-        map.run(directions);
+        try{
+            List<MoveDirection> directions = Arrays.asList(new OptionsParser().parse(input));
+            map.place(anaconda);
+            map.place(grizzly);
+            map.run(directions);
+        }
+        catch (IllegalArgumentException argumentException)
+        {
+            System.out.println(argumentException + "\nAn illegal argument has been passed over. Ending all processes.");
+            System.exit(1);
+        }
+
         System.out.println(map);
         System.out.println(anaconda.getPosition());
         System.out.println(grizzly.getPosition());

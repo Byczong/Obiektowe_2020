@@ -5,9 +5,10 @@ import pl.edu.agh.po.lab02.MoveDirection;
 import pl.edu.agh.po.lab02.MapDirection;
 import pl.edu.agh.po.lab02.Vector2d;
 import pl.edu.agh.po.lab04.IWorldMap;
+import pl.edu.agh.po.lab05.AbstractMapElement;
 
 
-public class Animal {
+public class Animal extends AbstractMapElement {
     private MapDirection orientation;
     private Vector2d position;
     private final IWorldMap animalMap;
@@ -20,6 +21,11 @@ public class Animal {
         this.animalMap = map;
         this.position = initialPosition;
         this.orientation = MapDirection.NORTH;
+    }
+
+    @Override
+    public boolean isBlocking() {
+        return true;
     }
 
     public void move(MoveDirection direction, IWorldMap map){
@@ -56,12 +62,13 @@ public class Animal {
 
     @Override
     public String toString() {
-        String orientationIndicator = "x";
+        String orientationIndicator;
         switch (this.orientation) {
             case NORTH -> orientationIndicator = "^";
             case SOUTH -> orientationIndicator = "v";
             case WEST ->  orientationIndicator = "<";
             case EAST ->  orientationIndicator = ">";
+            default -> throw new IllegalStateException("Unexpected value: " + this);
         }
         return orientationIndicator;
     }
@@ -72,5 +79,9 @@ public class Animal {
 
     public Vector2d getPosition() {
         return position;
+    }
+
+    public void setOrientation(MapDirection orientation) {
+        this.orientation = orientation;
     }
 }
