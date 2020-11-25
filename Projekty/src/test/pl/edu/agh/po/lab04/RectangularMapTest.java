@@ -22,15 +22,17 @@ public class RectangularMapTest {
         List<MoveDirection> directions = new LinkedList<>(inputList);
 
         RectangularMap map = new RectangularMap(5, 5);
-        map.place(new Animal(map, new Vector2d(3, 3)));
-        map.place(new Animal(map, new Vector2d(5, 3)));
+        Animal timberWolf = new Animal(map, new Vector2d(3, 3));
+        Animal greyWolf = new Animal(map, new Vector2d(5, 3));
+        map.place(timberWolf);
+        map.place(greyWolf);
         map.run(directions);
 
-        assertEquals(new Vector2d(3, 5), map.getAnimals().get(0).getPosition());
-        assertEquals(new Vector2d(5, 5), map.getAnimals().get(1).getPosition());
+        assertEquals(new Vector2d(3, 5), timberWolf.getPosition());
+        assertEquals(new Vector2d(5, 5), greyWolf.getPosition());
 
-        assertEquals(MapDirection.WEST, map.getAnimals().get(0).getOrientation());
-        assertEquals(MapDirection.EAST, map.getAnimals().get(1).getOrientation());
+        assertEquals(MapDirection.WEST, timberWolf.getOrientation());
+        assertEquals(MapDirection.EAST, greyWolf.getOrientation());
     }
 
     @Test
@@ -40,21 +42,24 @@ public class RectangularMapTest {
                 MoveDirection.LEFT, MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.LEFT, MoveDirection.FORWARD };
 
         RectangularMap map = new RectangularMap(10, 5);
-        map.place(new Animal(map, new Vector2d(5, 2)));
-        map.place(new Animal(map, new Vector2d(7, 2)));
-        map.place(new Animal(map, new Vector2d(9, 2)));
+        Animal kangaroo = new Animal(map, new Vector2d(5, 2));
+        Animal platypus = new Animal(map, new Vector2d(7, 2));
+        Animal dingo = new Animal(map, new Vector2d(9, 2));
+        map.place(kangaroo);
+        map.place(platypus);
+        map.place(dingo);
 
 
         List<MoveDirection> directionsList = Arrays.asList(directions);
         map.run(directionsList);
 
-        assertEquals(new Vector2d(6, 2), map.getAnimals().get(0).getPosition());
-        assertEquals(new Vector2d(7, 2), map.getAnimals().get(1).getPosition());
-        assertEquals(new Vector2d(8, 2), map.getAnimals().get(2).getPosition());
+        assertEquals(new Vector2d(6, 2), kangaroo.getPosition());
+        assertEquals(new Vector2d(7, 2), platypus.getPosition());
+        assertEquals(new Vector2d(8, 2), dingo.getPosition());
 
-        assertEquals(MapDirection.EAST, map.getAnimals().get(0).getOrientation());
-        assertEquals(MapDirection.EAST, map.getAnimals().get(1).getOrientation());
-        assertEquals(MapDirection.WEST, map.getAnimals().get(2).getOrientation());
+        assertEquals(MapDirection.EAST, kangaroo.getOrientation());
+        assertEquals(MapDirection.EAST, platypus.getOrientation());
+        assertEquals(MapDirection.WEST, dingo.getOrientation());
     }
 
 }

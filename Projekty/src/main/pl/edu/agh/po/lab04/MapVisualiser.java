@@ -3,8 +3,9 @@ package pl.edu.agh.po.lab04;
 // TODO: importy mogą wymagać aktualizacji w zależności od struktury projektu!
 
 import pl.edu.agh.po.lab02.Vector2d;
-import pl.edu.agh.po.lab05.AbstractMapElement;
+import pl.edu.agh.po.lab05.IMapElement;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -79,8 +80,8 @@ public class MapVisualiser {
     private String drawObject(Vector2d currentPosition) {
         String result;
         if (this.map.isOccupied(currentPosition)) {
-            Optional<AbstractMapElement> object = this.map.objectAt(currentPosition);
-            result = object.orElse(null).toString();
+            Optional<IMapElement> object = this.map.objectAt(currentPosition);
+            result = object.map(Objects::toString).orElse(EMPTY_CELL);
         } else {
             result = EMPTY_CELL;
         }

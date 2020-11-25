@@ -1,18 +1,22 @@
 package pl.edu.agh.po.lab03;
 
-
 import pl.edu.agh.po.lab02.MoveDirection;
 import pl.edu.agh.po.lab02.MapDirection;
 import pl.edu.agh.po.lab02.Vector2d;
 import pl.edu.agh.po.lab04.IWorldMap;
 import pl.edu.agh.po.lab05.AbstractMapElement;
+import pl.edu.agh.po.lab05.IMapElement;
+import pl.edu.agh.po.lab07.IPositionChangeObserver;
+import pl.edu.agh.po.lab07.IPositionChangedPublisher;
 
+import java.util.LinkedList;
+import java.util.List;
 
-public class Animal extends AbstractMapElement {
+public class Animal extends AbstractMapElement implements IPositionChangedPublisher {
+
     private MapDirection orientation;
-    private Vector2d position;
     private final IWorldMap animalMap;
-
+    private final List<IPositionChangeObserver> positionObservers = new LinkedList<>();
     public Animal(IWorldMap map){
         this(map, new Vector2d(2,2));
     }
@@ -39,11 +43,31 @@ public class Animal extends AbstractMapElement {
             case FORWARD -> possibleNextAnimal.position = this.position.add(this.orientation.toUnitVector());
             case BACKWARD -> possibleNextAnimal.position = this.position.subtract(this.orientation.toUnitVector());
         }
-        if(map.canMoveTo(possibleNextAnimal.position) || this.position == possibleNextAnimal.position){
+        if(map.canMoveTo(possibleNextAnimal.position)){
+            Vector2d oldPosition = this.getPosition();
             this.position = possibleNextAnimal.position;
+            this.positionChanged(this, oldPosition, this.getPosition());
+        }
+        else if(this.position == possibleNextAnimal.position)
             this.orientation = possibleNextAnimal.orientation;
+    }
+    @Override
+    public void addObserver(IPositionChangeObserver observer) {
+        positionObservers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(IPositionChangeObserver observer){
+        positionObservers.remove(observer);
+    }
+
+    @Override
+    public void positionChanged(IMapElement movedElement, Vector2d oldPosition, Vector2d newPosition) {
+        for(IPositionChangeObserver observer: positionObservers){
+            observer.positionChanged(movedElement, oldPosition, newPosition);
         }
     }
+
 
     public void oldMove(MoveDirection direction){
         switch (direction) {
@@ -75,10 +99,6 @@ public class Animal extends AbstractMapElement {
 
     public MapDirection getOrientation() {
         return orientation;
-    }
-
-    public Vector2d getPosition() {
-        return position;
     }
 
     public void setOrientation(MapDirection orientation) {

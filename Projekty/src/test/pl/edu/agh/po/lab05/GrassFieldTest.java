@@ -19,13 +19,15 @@ public class GrassFieldTest {
         List<MoveDirection> directions = Arrays.asList(new OptionsParser().parse(input));
         GrassField map = new GrassField(10);
         Animal anaconda = new Animal(map);
-        map.place(anaconda);
         Animal grizzly = new Animal(map, new Vector2d(3,4));
+
+        map.place(anaconda);
         map.place(grizzly);
         map.run(directions);
+
         assertEquals( new Vector2d(2, -1), anaconda.getPosition());
         assertEquals( new Vector2d(3, 7), grizzly.getPosition());
         assertEquals( 10, map.getNumberOfGrasses());
-        assertEquals(false, map.place(new Animal(map, new Vector2d(2,-1))));
+        assertThrows(IllegalArgumentException.class, ()-> map.place(new Animal(map, new Vector2d(2, -1))) );
     }
 }

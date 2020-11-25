@@ -1,5 +1,7 @@
 package pl.edu.agh.po.lab05;
 
+import pl.edu.agh.po.lab02.Vector2d;
+
 /**
  *
  * The interface responsible for interaction of map elements like Animals or Grasses.
@@ -14,4 +16,10 @@ public interface IMapElement {
      * @return True if the object is blocking positions.
      */
     boolean isBlocking();
+    /**
+     *
+     * @return Position of the element.
+     *
+     */
+    Vector2d getPosition();
 }

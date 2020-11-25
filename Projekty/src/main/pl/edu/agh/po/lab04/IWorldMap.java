@@ -4,7 +4,7 @@ package pl.edu.agh.po.lab04;
 import pl.edu.agh.po.lab03.Animal;
 import pl.edu.agh.po.lab02.MoveDirection;
 import pl.edu.agh.po.lab02.Vector2d;
-import pl.edu.agh.po.lab05.AbstractMapElement;
+import pl.edu.agh.po.lab05.IMapElement;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +14,7 @@ import java.util.Optional;
  * Assumes that Vector2d and MoveDirection classes are defined.
  *
  * @author apohllo
- *
+ * modified by Byczong
  */
 public interface IWorldMap {
     /**
@@ -31,9 +31,8 @@ public interface IWorldMap {
      *
      * @param animal
      *            The animal to place on the map.
-     * @return True if the animal was placed. The animal cannot be placed if the map is already occupied.
      */
-    boolean place(Animal animal);
+    void place(Animal animal);
 
     /**
      * Move the animal on the map according to the provided move directions. Every
@@ -62,5 +61,5 @@ public interface IWorldMap {
      *            The position of the object.
      * @return Object or empty Optional if the position is not occupied.
      */
-    Optional<AbstractMapElement> objectAt(Vector2d position);
+    Optional<IMapElement> objectAt(Vector2d position);
 }

@@ -3,8 +3,8 @@ package pl.edu.agh.po.lab04;
 import pl.edu.agh.po.lab02.MoveDirection;
 import pl.edu.agh.po.lab02.Vector2d;
 import pl.edu.agh.po.lab03.Animal;
-import pl.edu.agh.po.lab05.AbstractMapElement;
 import pl.edu.agh.po.lab05.AbstractWorldMap;
+import pl.edu.agh.po.lab05.IMapElement;
 
 
 import java.util.List;
@@ -25,24 +25,6 @@ public class RectangularMap extends AbstractWorldMap {
     }
 
     @Override
-    public boolean place(Animal animal) {
-        if (canMoveTo(animal.getPosition())) {
-            this.animals.add(animal);
-            return true;
-        }
-        else
-            return false;
-    }
-
-    @Override
-    public Vector2d[] getBoundaries(){
-        return  new Vector2d[]{bottomLeft, topRight};
-    }
-
-    @Override
-    public void adjustMap() { }
-
-    @Override
     public void run(List<MoveDirection> directions) {
         int animalsSize = animals.size();
         for (int i=0; i < directions.size(); i++){
@@ -51,7 +33,7 @@ public class RectangularMap extends AbstractWorldMap {
     }
 
     @Override
-    public Optional<AbstractMapElement> objectAt(Vector2d position) {
+    public Optional<IMapElement> objectAt(Vector2d position) {
         for(Animal animal : animals)
             if(animal.getPosition().equals(position))
                 return Optional.of(animal);

@@ -1,15 +1,16 @@
-package pl.edu.agh.po.lab05;
+package pl.edu.agh.po.lab07;
 
 import pl.edu.agh.po.lab02.MoveDirection;
 import pl.edu.agh.po.lab02.Vector2d;
 import pl.edu.agh.po.lab03.Animal;
 import pl.edu.agh.po.lab03.OptionsParser;
 import pl.edu.agh.po.lab04.IWorldMap;
+import pl.edu.agh.po.lab05.GrassField;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class World5 {
+public class World7 {
     public static void main(String[] args) {
         String [] input = new String []{"f","b","r","l","f","f","r","r","f","f","f","f","f","f","f","f"};
         IWorldMap map = new GrassField(10);
@@ -25,6 +26,18 @@ public class World5 {
             System.out.println(argumentException + "\nAn illegal argument has been passed over. Ending all processes.");
             System.exit(1);
         }
+
+        System.out.println(map);
+        System.out.println(anaconda.getPosition());
+        System.out.println(grizzly.getPosition()+ "\n");
+
+        anaconda.move(MoveDirection.BACKWARD, map);
+
+        System.out.println(map);
+        System.out.println(anaconda.getPosition());
+        System.out.println(grizzly.getPosition()+ "\n");
+
+        grizzly.move(MoveDirection.BACKWARD, map);
 
         System.out.println(map);
         System.out.println(anaconda.getPosition());
